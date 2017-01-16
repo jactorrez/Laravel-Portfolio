@@ -1,0 +1,85 @@
+/* ------ Plugins ------- */
+
+/* -- ParticlesJS -- */ 
+#particles-bg{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 100% !important;
+	background-color: #111;
+	z-index: $zIndex-2;
+}
+
+/* ------ Misc ------ */
+
+.social-links{
+	list-style-type: none;
+	padding: 0;
+
+	li:last-of-type{
+		padding-right: 0;
+	}
+
+	li{
+		display: inline-block;	
+		position: relative;
+		margin: 0;
+		padding: 0 1.5rem;
+
+		&:after{
+			content: "/";
+			color:  rgba($color-lightGrey, 0.7);
+			position: absolute;
+			top: 50%;
+			right: 0;
+			transform: translateY(-50%);
+		}
+
+		a{
+			text-decoration: none;
+			color: rgba(grey, 0.6);
+			font-size: $fontSize-smallest;
+			@include merriweather-3;
+			transition: color 0.2s ease-out;
+			letter-spacing: 2px;
+
+			&:hover{
+				color: white;
+			}
+		}
+	}
+	
+	li:first-of-type{
+		padding-left: 0;
+	}
+
+	li:last-of-type{
+		&:after{
+			content: "";
+			height: 0;
+			width: 0;
+		}
+	}
+}
+
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+div.container{
+	z-index: $zIndex-4;
+	border: 1px solid transparent; 
+}
+
+body{	
+	padding: 0 6rem;
+	position: relative;
+	margin: 1.2rem;
+	background-color: white;
+}
+

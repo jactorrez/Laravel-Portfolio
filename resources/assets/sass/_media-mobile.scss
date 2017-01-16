@@ -1,0 +1,154 @@
+@media only screen and (max-width:640px){
+	
+	/* --------- General --------- */
+	body{
+		padding: 0 2rem;
+	}
+
+	/* --------- Navigation --------- */
+	.menu{
+		.menu-container li {
+		margin-bottom: 2rem;
+
+			a{
+			font-size: $fontSize-base;
+			}
+		}
+	}
+	/* --------- Hero Section --------- */
+	section.brief-intro{
+	top: 12rem;
+
+		.intro-main{
+			p{
+				font-size: 2rem;
+				line-height: 3rem;
+				padding-right: 0;
+				margin-bottom: 0;
+			}
+		}
+
+		.intro-social .social-links{
+			li {
+				padding: 0 0.75rem;
+				a {
+				font-size: $fontSize-small;
+				letter-spacing: 1px;
+				}
+			}
+
+			li:first-of-type{
+				padding-left: 0;
+			}
+		}
+	}
+	
+	section.about{
+		margin-top: 15rem;
+
+		p.about-me{
+			width: initial;
+			font-size: $fontSize-large;
+			line-height: 1.5rem;
+			padding: 0;
+		}
+	}
+
+	/* --------- Work --------- */
+
+	section.work-container{
+	margin-top: -10rem;
+			
+		.row{
+
+			[class*="col-"]{
+				padding-right: 0;
+			}
+
+			.col-2{
+				width: 100%;
+			}
+
+			.col-1{
+				width: 100%;
+			}
+		}
+
+		.row [class*="col-"] row:not(:last-of-type){
+			margin-bottom: 2rem;
+		}
+
+
+
+		& > .row > div[class*="col-"]{
+			margin-bottom: 2rem;
+		}
+	}
+
+	footer{
+
+		section.skillset-section{
+			width: 100%; 
+			float: none;
+			display: block;
+			margin-bottom: 6rem;
+
+			h2{
+				font-size: $fontSize-large;
+			}
+			div.skills-list .list{
+				margin: 20px 0;
+				h3{
+					font-size: $fontSize-base;
+				}
+
+				li{
+					line-height: 1.5rem;
+					font-size: $fontSize-small;
+				}
+			}
+		}
+
+		section.contact-section{
+			width: 100%;
+			float: none;
+			display: block;
+			margin: 0;
+
+			h2{
+				font-size: $fontSize-large;
+			}
+
+			div{
+				float: none;
+				display: block;
+				width: 100%;
+				white-space: normal;
+
+				address
+				{ 
+					width: 70%;
+					a{
+						font-size: 22px;
+					}
+				}
+
+				p{
+					padding-top: 1rem;
+					font-size: $fontSize-large;
+				}
+			}
+
+			.social{
+				margin-top: 2rem;
+				ul li {
+					margin-bottom: 1rem;
+					a{
+						font-size: $fontSize-base;
+					}
+				}
+				
+			}
+		}
+	}
+}

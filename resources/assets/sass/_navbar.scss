@@ -1,0 +1,75 @@
+nav{
+	transition: opacity 500ms ease; 
+}
+
+.logo{
+	position: fixed;
+	top: 40px;
+	left: 40px;
+	opacity: 0.4;
+	transition: opacity 350ms ease-in;
+	z-index: $zIndex-8;
+	cursor: pointer;
+
+	&::after{
+		content: "JT.";
+		position: absolute;
+		top:0;
+		color: white;
+		@include merriweather-7;
+		font-size: $fontSize-base;
+		letter-spacing: 4px;
+	}
+}
+
+.menu{
+	position: fixed;
+	z-index: $zIndex-4;
+	top: 10%;
+	right: 40px;
+	height: 20px;
+	width: 3rem;
+	display: inline-block;
+	transition: opacity 350ms ease-in;
+
+	.menu-container{
+		position: absolute;
+		top: 0;
+		right: 0;
+		margin:0;
+		padding: 0;
+		list-style-position: inside;
+		list-style-type: none;
+		
+
+		li:first-of-type{
+			margin-top: 0px;
+		}
+
+		li{
+			text-align: right;
+			margin-bottom: 1.4rem;
+
+			a{	
+				box-sizing: border-box;
+				display: inline-block;
+				color: white;
+				text-decoration: none;
+				@include work-sans-4;
+				font-size: $fontSize-smaller;
+				letter-spacing: 1px;
+				transition: padding 0.6s ease-in, border 0.6s ease-in, background-color 0.2s ease-in, color 0.2s ease-in;
+
+				&:hover{
+					color: $color-gold;
+				}
+
+				&.active{
+					color: $color-gold;
+				}
+
+			}
+		}
+	}
+}
+

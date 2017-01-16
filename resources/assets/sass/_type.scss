@@ -1,0 +1,73 @@
+// Rem-calc function---------------------------
+
+
+//---------------------------------------------
+
+// Font Attributes ----------------------------
+
+/* --- Font sizes --- */
+$fontSize-smallest: 10px;
+$fontSize-smaller: 12px;
+$fontSize-small: 14px;
+$fontSize-base: 16px;
+$fontSize-large: 18px;
+$fontSize-larger: 25px;
+$fontSize-largest: 30px;
+$fontSize-jumbo: 40px;
+
+/* --- Font weights --- */
+
+/* --- Source Code Pro Font --- */
+
+.merriweather-3{
+  font-family: "Merriweather", serif;
+  font-weight: 300; 
+}
+.merriweather-4{
+  font-family: "Merriweather", serif;
+  font-weight: 400;
+}
+.merriweather-7{
+  font-family: "Merriweather", serif;
+  font-weight: 700;
+}
+
+@mixin merriweather-3{
+  font-family: "Merriweather", serif;
+  font-weight: 300; 
+}
+
+@mixin merriweather-4{
+  font-family: "Merriweather", serif;
+  font-weight: 400; 
+}
+
+@mixin merriweather-7{
+  font-family: "Merriweather", serif;
+  font-weight: 700; 
+}
+
+@mixin work-sans-3{
+  font-family: "Work Sans", sans-serif;
+  font-weight: 300; 
+}
+
+@mixin work-sans-4{
+  font-family: "Work Sans", sans-serif;
+  font-weight: 400; 
+}
+
+@mixin work-sans-7{
+  font-family: "Work Sans", sans-serif;
+  font-weight: 700; 
+}
+
+.merriweather-bold{
+  font-weight: 700;
+  color: white;
+}
+
+.merriweather-bold-gold{
+  font-weight: 700;
+  color: white;
+}

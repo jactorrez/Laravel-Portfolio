@@ -1,0 +1,46 @@
+@media only screen and (min-width: 641px) and (max-width: 1024px){
+	
+	body{
+		padding: 0 4rem; 
+	}
+	section.brief-intro{
+		top: 7rem;
+
+		.intro-main p{
+			font-size: $fontSize-jumbo;
+			line-height: 3.5rem;
+			padding-right: 4rem;
+		}
+
+		.intro-social .social-links li a{
+			font-size: $fontSize-base;
+
+		}
+	}
+	section.about{
+
+		p.about-me{
+			font-size: $fontSize-large;
+			width: 65%;
+		}
+	}
+	section.work-container{
+
+		.row{
+			text-align: center;
+
+			[class*="col-"]{
+			
+				margin-bottom: 2rem;
+			}
+
+			[class*="col-"]:last-of-type{
+				margin-bottom: 0;
+			}
+
+		
+		}
+	}
+}
+
+
