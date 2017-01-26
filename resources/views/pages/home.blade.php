@@ -7,7 +7,7 @@
 		<header>
 			<section class="brief-intro">
 				<div class="intro-main">
-					<p>I'm a <span class="merriweather-bold">Front-End Engineer</span> and <span class="merriweather-bold">User Interface Designer</span> with a passion for bringing digital product ideas to life.</p>
+					<p>I'm a <span class="merriweather-bold">Front-End Engineer</span> and <span class="merriweather-bold">User Interface Designer</span> with a passion for solving problems and bringing ideas to life.</p>
 				</div>
 				<div class="intro-social">
 					<ul class="social-links">
@@ -21,33 +21,31 @@
 		</header>
 
 		<section id="aboutme" class="about">
-			<p class="source-code-5 about-me">Hello, I'm Javier Torrez. I work closely with established companies and startups who want to <span class="merriweather-bold-gold">prototype, build, and launch their next product ideas</span>. I'm passionate about teaching, learning, and solving problems. I'm currently freelancing, but I'm also looking for opportunities to work as a front-end engineer with companies and teams <span class="merriweather-bold-gold">working on challenging problems.</span> 
+			<p class="source-code-5 about-me">Hello, I'm Javier Torrez. I work closely with established companies and startups who want to <span class="merriweather-bold-gold">prototype, build, and launch their next product ideas</span>. I'm currently freelancing, but I'm also looking for opportunities to work as a front-end engineer with companies and teams <span class="merriweather-bold-gold">working on challenging problems.</span> 
 
 			If you'd like to hire me, get a free consulation, or just grab coffee, feel free to <a href="" class="u-link">get in touch.</a></p>
 		</section>
 
 		<section id="work" class="work-container grid-container">
 			<div class="row">
-				<div class="col-2">
-					<div class="row">
-						<div class="col-3">
-							<a href="/work/docnow" class="img-container">
-								<img src="{{ asset("img/docnow-2.jpg") }}" alt="">
-							</a>
-						</div>
-					</div> 
-					<div class="row">
-						<div class="col-3">
-							<a href="/work/docnow" class="img-container">
-								<img src="{{ asset("img/rise-2.jpg") }}" alt="">
-							</a>
-						</div>
+				<div class="col-1">
+					<div class="img-container">
+						<img src="{{ asset("img/rise-2.jpg") }}" alt="">
+						<a href="" class="button"></a>
 					</div>
 				</div>
 				<div class="col-1">
-					<a href="#" class="img-container">
-						<img src="{{ asset("img/skybox-2.jpg") }}" alt="">
-					</a>
+					<div href="#" class="img-container">
+						<img src="{{ asset("img/skybox-1.jpg") }}" alt="">
+						<a href="" class="button"></a>
+					</div>
+				</div>
+			
+				<div class="col-1">
+					<div class="img-container">
+						<img src="{{ asset("img/rise-2.jpg") }}" alt="">
+						<a href="" class="button"></a>
+					</div>
 				</div>
 			</div>
 		</section>

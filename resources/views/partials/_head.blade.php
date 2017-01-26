@@ -8,5 +8,5 @@
 <!-- Place favicon.ico in the root directory -->
 
 <link href="https://fonts.googleapis.com/css?family=Merriweather:300,400,700" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Work+Sans:100,400,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
 <link rel="stylesheet" href="{{ asset("css/app.css") }}">

@@ -62,6 +62,17 @@ $fontSize-jumbo: 40px;
   font-weight: 700; 
 }
 
+@mixin open-sans-3{
+  font-family: "Open Sans", sans-serif;
+  font-weight: 300;
+}
+
+@mixin open-sans-4{
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+}
+
+
 .merriweather-bold{
   font-weight: 700;
   color: white;

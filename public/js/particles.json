@@ -28,7 +28,7 @@
 	    	"width": 1
 	    },
 	    "move": {
-	    	"enable": true,
+	    	"enable": false,
 	    	"speed": 0.55,
 	    	"direction": "top",
 	    	"random" : true,

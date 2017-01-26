@@ -34,7 +34,7 @@ section.about{
 
 	p.about-me {
 		position: relative;
-		color: rgba(white, 0.8);
+		color: white;
 		font-weight: 400; 
 		@include merriweather-3;
 		font-size: $fontSize-base;
@@ -69,6 +69,7 @@ section.work-container{
 	transform: translateY(20rem);
 
 	.img-container{
+	 position: relative;
 	 display: inline-block;
 	 height: 100%;
 	 width: 100%;
@@ -79,13 +80,19 @@ section.work-container{
 	 	opacity: 1;
 	 }
 
-	 &:hover{
-	 	transform: scale(1.02);
-	 	box-shadow: 0 0.7rem 2rem 0.3rem rgba(black, 0.4);
+
+	 &:hover .button{
+	 	opacity: 1;
+	 	transform: translate(-50%, -50%) scale(1);
 	 }
 
 	 &:active{
 	 	transform: scale(1.04);
+	 }
+
+	 &:active .button{
+		opacity: 1;
+	 	transform: translate(-50%, -50%) scale(1);
 	 }
 
 	 &:after{
@@ -96,15 +103,16 @@ section.work-container{
 		opacity: 0;
 		width: 100%;
 		height: 100%;
-		background-color: rgba(white, 0.05);
+		background-color: rgba(white, 0.3);
 		transition: opacity 0.3s ease-out;
 	 }
 
-		img{
-			position: relative;
-			max-width: 100%;
-			height: auto;
-		}
+	img{
+		position: relative;
+		max-width: 100%;
+		height: auto;
+	}
+
 	}
 
 }

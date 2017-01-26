@@ -6,17 +6,10 @@
 .row{
 	margin: 0 -2rem 2rem;
 	font-size: 0;
+	
 }
 
 .row:last-child{
-	margin-bottom: 0;
-}
-
-.row [class*="col-"] .row{
-	margin: 0 0 2rem;
-}
-
-[class*="col-"] .row:last-of-type{
 	margin-bottom: 0;
 }
 
@@ -26,19 +19,20 @@
 	clear: both;
 }
 
+
 /* ------- Grid Columns ------ */
 
 [class*="col-"]{
 	position: relative;
 	float: left;
-	/* ---- Gutter ---- */
-	padding-right: 2rem;
-	min-height: 1px;
 
+	/* ---- Gutter ---- */
+	padding: 0 1rem;
+	min-height: 1px;
 }
 
-[class*='col-']:last-of-type {
-  padding-right: 0;
+.row [class*="col-"]:last-of-type{
+	margin-right: -2rem;
 }
 
 .col-1{
