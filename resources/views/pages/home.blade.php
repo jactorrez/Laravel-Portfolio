@@ -21,7 +21,7 @@
 		</header>
 
 		<section id="aboutme" class="about">
-			<p class="source-code-5 about-me">Hello, I'm Javier Torrez. I work closely with established companies and startups who want to <span class="merriweather-bold-gold">prototype, build, and launch their next product ideas</span>. I'm currently freelancing, but I'm also looking for opportunities to work as a front-end engineer with companies and teams <span class="merriweather-bold-gold">working on challenging problems.</span> 
+			<p class="source-code-5 about-me">Hello, I'm Javier Torrez. I work closely with established companies and startups who want to <span class="merriweather-bold-gold">prototype, build, and launch their next product idea</span>. I'm currently freelancing, but I'm also looking for opportunities to work as a front-end engineer with companies and teams <span class="merriweather-bold-gold">working on challenging problems.</span> 
 
 			If you'd like to hire me, get a free consulation, or just grab coffee, feel free to <a href="" class="u-link">get in touch.</a></p>
 		</section>

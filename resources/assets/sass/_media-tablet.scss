@@ -18,7 +18,7 @@
 		}
 	}
 	section.about{
-
+		transform: translateY(4rem);
 		p.about-me{
 			font-size: $fontSize-large;
 			width: 65%;
@@ -32,13 +32,15 @@
 			[class*="col-"]{
 			
 				margin-bottom: 2rem;
+
+				.img-container .button{
+					
+				}
 			}
 
 			[class*="col-"]:last-of-type{
 				margin-bottom: 0;
 			}
-
-		
 		}
 	}
 }

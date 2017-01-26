@@ -48,7 +48,7 @@
 
 		p.about-me{
 			width: initial;
-			font-size: $fontSize-large;
+			font-size: $fontSize-base;
 			line-height: 1.5rem;
 			padding: 0;
 		}
@@ -87,6 +87,7 @@
 	}
 
 	footer{
+		margin-top: 10rem;
 
 		section.skillset-section{
 			width: 100%; 

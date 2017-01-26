@@ -546,7 +546,7 @@ template {
   z-index: 400;
   top: 50%;
   left: 50%;
-  width: 140px;
+  width: 155px;
   height: 45px;
   -webkit-transform: translate(-50%, -50%) scale(0.3);
   transform: translate(-50%, -50%) scale(0.3);
@@ -563,7 +563,8 @@ template {
   content: "Case Study Soon";
   font-size: 0.85rem;
   display: inline-block;
-  position: relative;
+  white-space: nowrap;
+  position: absolute;
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
@@ -871,8 +872,8 @@ section.work-container {
   transition: opacity 3000ms cubic-bezier(0.19, 1, 0.22, 1) 0ms, -webkit-transform 1500ms cubic-bezier(0.19, 1, 0.22, 1) 0ms;
   transition: transform 1500ms cubic-bezier(0.19, 1, 0.22, 1) 0ms, opacity 3000ms cubic-bezier(0.19, 1, 0.22, 1) 0ms;
   transition: transform 1500ms cubic-bezier(0.19, 1, 0.22, 1) 0ms, opacity 3000ms cubic-bezier(0.19, 1, 0.22, 1) 0ms, -webkit-transform 1500ms cubic-bezier(0.19, 1, 0.22, 1) 0ms;
-  -webkit-transform: translateY(20rem);
-  transform: translateY(20rem);
+  -webkit-transform: translateY(13rem);
+  transform: translateY(13rem);
 }
 
 section.work-container .img-container {
@@ -1080,6 +1081,10 @@ footer section.contact-section .social ul li a:hover {
   section.brief-intro .intro-social .social-links li a {
     font-size: 16px;
   }
+  section.about {
+    -webkit-transform: translateY(4rem);
+    transform: translateY(4rem);
+  }
   section.about p.about-me {
     font-size: 18px;
     width: 65%;
@@ -1132,7 +1137,7 @@ footer section.contact-section .social ul li a:hover {
   }
   section.about p.about-me {
     width: initial;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 1.5rem;
     padding: 0;
   }
@@ -1154,6 +1159,9 @@ footer section.contact-section .social ul li a:hover {
   }
   section.work-container > .row > div[class*="col-"] {
     margin-bottom: 2rem;
+  }
+  footer {
+    margin-top: 10rem;
   }
   footer section.skillset-section {
     width: 100%;

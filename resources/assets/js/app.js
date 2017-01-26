@@ -14,7 +14,7 @@ $(function(){
 	var isScrolling; 
 
 	/* ----- Hero Section ----- */ 
-	var hero_section = $("section.brief-intro");
+	var hero_section = $(".brief-intro");
 	var hero_section_height = hero_section.height();
 	var hero_section_trigger = (hero_section_height / 2) - 100;
 	const hero_section_fromTop = (hero_section.offset().top + hero_section_height);
@@ -128,17 +128,16 @@ $(function(){
 				var new_opacity = calc_opacity;
 
 				hero_section.css('opacity', new_opacity);
-		    }
+		    } 
 
 		    if(scrollAmnt < hero_section_fromTop){
 		    	hero_section.css("opacity", 1);
-		    	console.log("here!");
 		    }
 		}
 
 		/* -----  Section: About Section  ----- */
 		if((scrollAmnt + window_height) > (about_section_offset + 40)){
-			hero_section.css("opacity", 0);
+			
 			let scroll_calc = (scrollAmnt + window_height) - about_section_offset + 40;
 			var scroll_by = - (scroll_calc/4);
 			about_section.css({ "transform": "translateY(" + scroll_by + "px)", 
