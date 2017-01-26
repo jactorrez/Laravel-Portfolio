@@ -1,4 +1,7 @@
 $(function(){
+
+
+
 	/* ----- Third Party Libraries ----- */ 
 	particlesJS.load('particles-bg', 'js/particles.json');
 	var particles_bg = $("#particles-bg");
@@ -14,6 +17,7 @@ $(function(){
 	var hero_section = $("section.brief-intro");
 	var hero_section_height = hero_section.height();
 	var hero_section_trigger = (hero_section_height / 2) - 100;
+	const hero_section_fromTop = (hero_section.offset().top + hero_section_height);
 
 	/* ----- About Section ----- */
 	var about_section = $(".about");
@@ -23,6 +27,11 @@ $(function(){
 	/* ------ Work Section ------ */ 
 	var work_section = $("section.work-container");
 	var work_section_offset = work_section.offset().top; 
+
+		/* ----- Image Containers ----- */
+
+		var img_container = $(".img-container");
+		var img_container_offset = img_container.offset().top;
 
 	/* ------ Footer Section ------ */ 
 	var footer_section = $("footer");
@@ -60,7 +69,7 @@ $(function(){
 	/* ----- EVENT LISTENER: On Scroll  ----- */ 
 	$(window).on('scroll', function(){
 		const scrollAmnt = $(document).scrollTop();
-		const hero_section_fromTop = (hero_section.offset().top + hero_section_height);
+		// const hero_section_fromTop = (hero_section.offset().top + hero_section_height);
 		const about_section_fromTop = (about_section.offset().top + about_section_height);
 	
 	   
@@ -107,8 +116,8 @@ $(function(){
 
 		/* -----  Section: Hero Section  ----- */
 		/* ---- Control Movement ---- */
-		if(scrollAmnt > 0 && scrollAmnt < about_section.offset().top){
-			var newPos = - (scrollAmnt / 3);
+		if(scrollAmnt >= 0 && scrollAmnt < about_section.offset().top){
+			var newPos = -(scrollAmnt / 3);
 			hero_section.css('transform', 'translateY(' + (newPos * 2) + 'px)');
 			var trigger_calc = hero_section.offset().top - scrollAmnt;
 
@@ -123,6 +132,7 @@ $(function(){
 
 		    if(scrollAmnt < hero_section_fromTop){
 		    	hero_section.css("opacity", 1);
+		    	console.log("here!");
 		    }
 		}
 
@@ -156,6 +166,9 @@ $(function(){
 		else{
 			footer_section.css("opacity", "0");
 		}
+
+		/* ----- Section: Images ----- */
+
 
 	});
 
@@ -199,6 +212,8 @@ $(function(){
 				window.location.hash = href;
 		});
 	}
+
+	
 	
 });
 

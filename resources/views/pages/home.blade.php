@@ -30,7 +30,7 @@
 			<div class="row">
 				<div class="col-1">
 					<div class="img-container">
-						<img src="{{ asset("img/rise-2.jpg") }}" alt="">
+						<img src="{{ asset("img/docnow-2.jpg") }}" alt="">
 						<a href="" class="button"></a>
 					</div>
 				</div>
