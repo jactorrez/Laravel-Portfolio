@@ -6,7 +6,7 @@ $(function(){
 
 	/* ----- Affected By Window Change ------ */
 
-	//var bg_height = $("footer").offset().top + $("footer").outerHeight() - 16;
+	var bg_height = $("footer").offset().top + $("footer").outerHeight() - 16;
 	var window_height = $(window).height();
 	var document_height = $(document).height();
 	var isScrolling; 
@@ -66,7 +66,7 @@ $(function(){
 	/* ----- EVENT LISTENER: On Scroll  ----- */ 
 	$(window).on('scroll', function(){
 		const scrollAmnt = $(document).scrollTop();
-		// const hero_section_fromTop = (hero_section.offset().top + hero_section_height);
+		const hero_section_fromTop = (hero_section.offset().top + hero_section_height);
 		const about_section_fromTop = (about_section.offset().top + about_section_height);
 	
 	   
@@ -117,17 +117,22 @@ $(function(){
 			var newPos = -(scrollAmnt / 3);
 			hero_section.css('transform', 'translateY(' + (newPos * 2) + 'px)');
 			var trigger_calc = hero_section.offset().top - scrollAmnt;
+			
 
 			/* -- Control Opacity -- */
-			if(Math.abs(trigger_calc) > hero_section_trigger){
-				let calc_begin = Math.abs(trigger_calc) - (hero_section_trigger);
-				var calc_opacity = Math.max(0, 1 - calc_begin/100); 
-				var new_opacity = calc_opacity;
+			if(trigger_calc < 0){
+				if(Math.abs(trigger_calc) > hero_section_trigger){
+				
+					let calc_begin = Math.abs(trigger_calc) - (hero_section_trigger);
+					var calc_opacity = Math.max(0, 1 - calc_begin/100); 
+					var new_opacity = calc_opacity;
+					console.log(new_opacity);
 
-				hero_section.css('opacity', new_opacity);
-		    } 
+					hero_section.css('opacity', new_opacity);
+			    } 
+			}
 
-		    if(scrollAmnt < hero_section_fromTop){
+		    if(scrollAmnt < (hero_section_fromTop - 200)){
 		    	hero_section.css("opacity", 1);
 		    }
 		}
