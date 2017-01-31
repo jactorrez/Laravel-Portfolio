@@ -28,8 +28,8 @@ $(function(){
 
 		/* ----- Image Containers ----- */
 
-		// var img_container = $(".img-container");
-		// var img_container_offset = img_container.offset().top;
+		var img_container = $(".img-container");
+		var img_container_offset = img_container.offset().top;
 
 	/* ------ Footer Section ------ */ 
 	var footer_section = $("footer");
