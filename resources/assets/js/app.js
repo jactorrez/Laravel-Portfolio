@@ -1,7 +1,5 @@
 $(function(){
 
-
-
 	/* ----- Third Party Libraries ----- */ 
 	particlesJS.load('particles-bg', 'js/particles.json');
 	var particles_bg = $("#particles-bg");
@@ -30,8 +28,8 @@ $(function(){
 
 		/* ----- Image Containers ----- */
 
-		var img_container = $(".img-container");
-		var img_container_offset = img_container.offset().top;
+		// var img_container = $(".img-container");
+		// var img_container_offset = img_container.offset().top;
 
 	/* ------ Footer Section ------ */ 
 	var footer_section = $("footer");
@@ -47,9 +45,8 @@ $(function(){
 
 	/* ----- EVENT: On Window Resize  ----- */
 	$(window).on('resize', function(){
-		//bg_height = $("footer").offset().top + $("footer").outerHeight() - 16;
 		particles_bg.css("height", bg_height);
-
+		
 		/* ---- Updating Heights ---- */
 		window_height = $(window).height();
 		document_height = $(document).height();
@@ -211,9 +208,6 @@ $(function(){
 				window.location.hash = href;
 		});
 	}
-
-	
-	
 });
 
 
