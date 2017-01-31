@@ -1155,7 +1155,7 @@ footer section.contact-section .social ul li a:hover {
     margin-bottom: 0;
   }
   section.brief-intro .intro-social .social-links li {
-    padding: 0 0.75rem;
+    padding: 0 0.60rem;
   }
   section.brief-intro .intro-social .social-links li a {
     font-size: 14px;
@@ -1163,6 +1163,9 @@ footer section.contact-section .social ul li a:hover {
   }
   section.brief-intro .intro-social .social-links li:first-of-type {
     padding-left: 0;
+  }
+  section.brief-intro .intro-social .social-links li:last-of-type {
+    padding-right: 0;
   }
   section.about {
     margin-top: 15rem;
