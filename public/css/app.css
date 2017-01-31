@@ -701,7 +701,7 @@ nav {
 .menu .menu-container li a {
   box-sizing: border-box;
   display: inline-block;
-  color: white;
+  color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
   font-family: "Work Sans", sans-serif;
   font-weight: 400;
@@ -943,6 +943,10 @@ section.work-container .img-container .project-info .project-lists .case-btn {
 }
 
 section.work-container .img-container:hover .project-info {
+  opacity: 1;
+}
+
+section.work-container .img-container:active .project-info {
   opacity: 1;
 }
 

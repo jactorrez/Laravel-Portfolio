@@ -53,7 +53,7 @@ nav{
 			a{	
 				box-sizing: border-box;
 				display: inline-block;
-				color: white;
+				color: rgba(white, 0.9);
 				text-decoration: none;
 				@include work-sans-4;
 				font-size: $fontSize-smaller;

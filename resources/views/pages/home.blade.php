@@ -61,7 +61,7 @@
 				</div>
 				<div class="col-1">
 					<div href="#" class="img-container">
-						<img src="{{ asset("img/skybox-1.jpg") }}" alt="">
+						<img src="{{ asset("img/skybox-2.jpg") }}" alt="">
 						<div class="project-info docnow-info">
 							<ul class="project-lists">
 								<li class="project-descrip">SkyBox allows sports aficionados to stream live sports from any device, at any time, for one monthly price.</li>
