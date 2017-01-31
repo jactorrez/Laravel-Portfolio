@@ -60,35 +60,17 @@
 	}
 }
 
-.button{
-	position: absolute;
-	opacity: 0;
+.btn{
+	opacity: 1;
 	z-index: $zIndex-6;
-	top: 50%;
-	left: 50%;
-	width: 155px;
-	height: 45px;
-	transform: translate(-50%, -50%) scale(0.3);
-	border-radius: 3rem;
-	background-color: rgba(#111, 0.8);
-	transition: all 0.3s ease-out, transform 0.1s ease-out;
-	box-shadow: 0 5px 1rem 0.3rem rgba(black, 0.2);
+	text-align: center;
+	padding: 0.4rem;
+	transform: translate(-50%, -50%) scale(0.9);
+	border: 1px solid white;
+	border-radius: 4px;
+	margin-top: 2rem;
+}
 
-	&::after{
-		content: "Case Study Soon";
-		font-size: 0.85rem;
-		display: inline-block;
-		white-space: nowrap;
-		position: absolute;
-		top:50%;
-		left:50%;
-		transform: translate(-50%, -50%);
-		color: white;
-		@include open-sans-4;
-		font-family: "Open Sans", sans-serif;
-	}
-
-	&:hover{
-		transform: translate(-50%, -50%) scale(1.5);
-	}
+.btn:nth-of-type(2){
+	margin-left: 0.7rem;
 }

@@ -21,7 +21,7 @@
 		</header>
 
 		<section id="aboutme" class="about">
-			<p class="source-code-5 about-me">Hello, I'm Javier Torrez. I work closely with established companies and startups who want to <span class="merriweather-bold-gold">prototype, build, and launch their next product idea</span>. I'm currently freelancing, but I'm also looking for opportunities to work as a front-end engineer with companies and teams <span class="merriweather-bold-gold">working on challenging problems.</span> 
+			<p class="source-code-5 about-me">Hello, I'm Javier Torrez. I work closely with established companies and startups who want to <span class="merriweather-bold">prototype, build, and launch their next product idea</span>. I'm currently freelancing, but I'm also looking for opportunities to work as a front-end engineer with companies and teams <span class="merriweather-bold">working on challenging problems.</span> 
 
 			If you'd like to hire me, get a free consulation, or just grab coffee, feel free to <a href="" class="u-link">get in touch.</a></p>
 		</section>
@@ -31,20 +31,93 @@
 				<div class="col-1">
 					<div class="img-container">
 						<img src="{{ asset("img/docnow-2.jpg") }}" alt="">
-						<a href="" class="button"></a>
+						<div class="project-info docnow-info">
+							<ul class="project-lists">
+								<li class="project-descrip">DocNow helps patients efficiently and quickly
+								find the best doctors near them.
+								</li>
+								<ul>
+									<p>Role</p>
+									<li>UI Designer</li>
+									<li>Front-End Engineer</li>
+								</ul>
+								<ul>
+									<p>Stack</p>
+									<li>ES6</li>
+									<li>ReactJS</li>
+									<li>Webpack</li>
+								</ul>
+								<ul>
+									<p>Year</p>
+									<li>2016</li>
+								</ul>
+								<ul class="buttons">
+									<a href="#" class="btn case-btn">Case Study Soon</a>
+									<a href="#" class="btn case-btn">Code</a>
+								</ul>
+							</ul>
+						</div>
 					</div>
 				</div>
 				<div class="col-1">
 					<div href="#" class="img-container">
 						<img src="{{ asset("img/skybox-1.jpg") }}" alt="">
-						<a href="" class="button"></a>
+						<div class="project-info docnow-info">
+							<ul class="project-lists">
+								<li class="project-descrip">SkyBox allows sports aficionados to stream live sports from any device, at any time, for one monthly price.</li>
+								<ul>
+									<p>Role</p>
+									<li>UI Designer</li>
+									<li>Front-End Engineer</li>
+								</ul>
+								<ul>
+									<p>Stack</p>
+									<li>ES6</li>
+									<li>ReactJS</li>
+									<li>Webpack</li>
+								</ul>
+								<ul>
+									<p>Year</p>
+									<li>2016</li>
+								</ul>
+								<ul class="buttons">
+									<a href="#" class="btn case-btn">Case Study Soon</a>
+									<a href="#" class="btn case-btn">Code</a>
+								</ul>
+							</ul>
+						</div>
 					</div>
 				</div>
 			
 				<div class="col-1">
 					<div class="img-container">
 						<img src="{{ asset("img/rise-2.jpg") }}" alt="">
-						<a href="" class="button"></a>
+						<div class="project-info docnow-info">
+							<ul class="project-lists">
+								<li class="project-descrip">RISE is a knowledge crowd-sourcing 
+									platform where users add and find key insights from industry experts.
+								</li>
+								<ul>
+									<p>Role</p>
+									<li>UI Designer</li>
+									<li>Front-End Engineer</li>
+								</ul>
+								<ul>
+									<p>Stack</p>
+									<li>ES6</li>
+									<li>ReactJS</li>
+									<li>Webpack</li>
+								</ul>
+								<ul>
+									<p>Year</p>
+									<li>2016</li>
+								</ul>
+								<ul class="buttons">
+									<a href="#" class="btn case-btn">Case Study Soon</a>
+									<a href="#" class="btn case-btn">Code</a>
+								</ul>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
