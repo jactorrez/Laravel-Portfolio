@@ -105,6 +105,10 @@ section.work-container{
 
 				ul.buttons{
 					margin-top: 1.5rem;
+
+					.case-btn{
+						@include merriweather-3;
+					}
 				}
 				
 				li.project-descrip{

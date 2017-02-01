@@ -81,14 +81,9 @@
 			}
 		}
 
-		.row [class*="col-"] row:not(:last-of-type){
-			margin-bottom: 2rem;
-		}
-
-
 
 		& > .row > div[class*="col-"]{
-			margin-bottom: 2rem;
+			margin-bottom: 3rem;
 		}
 	}
 

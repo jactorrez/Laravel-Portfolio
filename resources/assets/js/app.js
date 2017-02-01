@@ -126,7 +126,6 @@ $(function(){
 					let calc_begin = Math.abs(trigger_calc) - (hero_section_trigger);
 					var calc_opacity = Math.max(0, 1 - calc_begin/100); 
 					var new_opacity = calc_opacity;
-					console.log(new_opacity);
 
 					hero_section.css('opacity', new_opacity);
 			    } 

@@ -53,7 +53,7 @@
 								</ul>
 								<ul class="buttons">
 									<a href="#" class="btn case-btn">Case Study Soon</a>
-									<a href="#" class="btn case-btn">Code</a>
+									<a href="#" class="btn case-btn">See Code</a>
 								</ul>
 							</ul>
 						</div>
@@ -82,7 +82,7 @@
 								</ul>
 								<ul class="buttons">
 									<a href="#" class="btn case-btn">Case Study Soon</a>
-									<a href="#" class="btn case-btn">Code</a>
+									<a href="#" class="btn case-btn">See Code</a>
 								</ul>
 							</ul>
 						</div>
@@ -114,7 +114,7 @@
 								</ul>
 								<ul class="buttons">
 									<a href="#" class="btn case-btn">Case Study Soon</a>
-									<a href="#" class="btn case-btn">Code</a>
+									<a href="#" class="btn case-btn">See Code</a>
 								</ul>
 							</ul>
 						</div>

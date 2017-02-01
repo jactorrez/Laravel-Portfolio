@@ -53,19 +53,20 @@ nav{
 			a{	
 				box-sizing: border-box;
 				display: inline-block;
-				color: rgba(white, 0.9);
+				color: rgba(white, 0.5);
 				text-decoration: none;
 				@include work-sans-4;
 				font-size: $fontSize-smaller;
 				letter-spacing: 1px;
-				transition: padding 0.6s ease-in, border 0.6s ease-in, background-color 0.2s ease-in, color 0.2s ease-in;
+				transition: padding 0.2s ease-out, border 0.6s ease-in, background-color 0.2s ease-in, color 0.2s ease-in;
 
 				&:hover{
 					color: $color-gold;
 				}
 
 				&.active{
-					color: $color-gold;
+					color: white;
+					padding-right: 0.4rem;
 				}
 
 			}

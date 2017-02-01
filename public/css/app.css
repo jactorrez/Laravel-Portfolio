@@ -545,7 +545,7 @@ template {
   opacity: 1;
   z-index: 400;
   text-align: center;
-  padding: 0.4rem;
+  padding: 0.5rem 0.4rem;
   -webkit-transform: translate(-50%, -50%) scale(0.9);
   transform: translate(-50%, -50%) scale(0.9);
   border: 1px solid white;
@@ -701,14 +701,14 @@ nav {
 .menu .menu-container li a {
   box-sizing: border-box;
   display: inline-block;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.5);
   text-decoration: none;
   font-family: "Work Sans", sans-serif;
   font-weight: 400;
   font-size: 12px;
   letter-spacing: 1px;
-  -webkit-transition: padding 0.6s ease-in, border 0.6s ease-in, background-color 0.2s ease-in, color 0.2s ease-in;
-  transition: padding 0.6s ease-in, border 0.6s ease-in, background-color 0.2s ease-in, color 0.2s ease-in;
+  -webkit-transition: padding 0.2s ease-out, border 0.6s ease-in, background-color 0.2s ease-in, color 0.2s ease-in;
+  transition: padding 0.2s ease-out, border 0.6s ease-in, background-color 0.2s ease-in, color 0.2s ease-in;
 }
 
 .menu .menu-container li a:hover {
@@ -716,7 +716,8 @@ nav {
 }
 
 .menu .menu-container li a.active {
-  color: #b69853;
+  color: white;
+  padding-right: 0.4rem;
 }
 
 .grid-container {
@@ -744,7 +745,7 @@ nav {
   position: relative;
   float: left;
   /* ---- Gutter ---- */
-  padding: 0 0.7rem;
+  padding: 0 0.9rem;
   min-height: 1px;
 }
 
@@ -894,6 +895,11 @@ section.work-container .img-container .project-info .project-lists {
 
 section.work-container .img-container .project-info .project-lists ul.buttons {
   margin-top: 1.5rem;
+}
+
+section.work-container .img-container .project-info .project-lists ul.buttons .case-btn {
+  font-family: "Merriweather", serif;
+  font-weight: 300;
 }
 
 section.work-container .img-container .project-info .project-lists li.project-descrip {
@@ -1189,11 +1195,8 @@ footer section.contact-section .social ul li a:hover {
   section.work-container .row .col-1 {
     width: 100%;
   }
-  section.work-container .row [class*="col-"] row:not(:last-of-type) {
-    margin-bottom: 2rem;
-  }
   section.work-container > .row > div[class*="col-"] {
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
   }
   footer {
     margin-top: 10rem;
