@@ -1,5 +1,21 @@
 $(function(){
 
+	
+	alert("works!");
+	console.log("works!");
+	/* ---- Fallbacks ---- */
+	/* requestAnimationFrame fallback */
+	window.requestAnimationFrame = window.requestAnimationFrame
+                                   || window.mozRequestAnimationFrame
+                                   || window.webkitRequestAnimationFrame
+                                   || window.msRequestAnimationFrame
+                                   || function(f){return setTimeout(f, 1000/60)}
+
+	window.cancelAnimationFrame = window.cancelAnimationFrame
+	                              || window.mozCancelAnimationFrame
+	                              || function(requestID){clearTimeout(requestID)} 
+
+
 	/* ----- Third Party Libraries ----- */ 
 	particlesJS.load('particles-bg', 'js/particles.json');
 	var particles_bg = $("#particles-bg");
@@ -44,6 +60,9 @@ $(function(){
 		var contact_link = $(".menu-container li a[href='#contact']");
 
 	/* ----- EVENT: On Window Resize  ----- */
+
+	/* DEBOUNCE THIS */ 
+
 	$(window).on('resize', function(){
 		particles_bg.css("height", bg_height);
 		
@@ -63,8 +82,10 @@ $(function(){
 	}, 600);
 
 
-	/* ----- EVENT LISTENER: On Scroll  ----- */ 
-	$(window).on('scroll', function(){
+	/* USE rAF FOR OPTIMIZING */ 
+
+	function onScroll(){
+
 		const scrollAmnt = $(document).scrollTop();
 		const hero_section_fromTop = (hero_section.offset().top + hero_section_height);
 		const about_section_fromTop = (about_section.offset().top + about_section_height);
@@ -166,11 +187,11 @@ $(function(){
 		else{
 			footer_section.css("opacity", "0");
 		}
+	}
 
-		/* ----- Section: Images ----- */
 
-
-	});
+	/* ----- EVENT LISTENER: On Scroll  ----- */ 
+	$(window).on('scroll', () => { requestAnimationFrame(onScroll) });
 
 	/* ---- Smooth Scrolling ---- */ 
 	var currentHashtag = "";
