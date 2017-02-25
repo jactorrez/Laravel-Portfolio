@@ -1,8 +1,7 @@
 $(function(){
 
-	
-	alert("works!");
-	console.log("works!");
+	const debounce = require("lodash.debounce");
+
 	/* ---- Fallbacks ---- */
 	/* requestAnimationFrame fallback */
 	window.requestAnimationFrame = window.requestAnimationFrame
@@ -63,14 +62,16 @@ $(function(){
 
 	/* DEBOUNCE THIS */ 
 
-	$(window).on('resize', function(){
+	function onResize(){
 		particles_bg.css("height", bg_height);
 		
 		/* ---- Updating Heights ---- */
 		window_height = $(window).height();
 		document_height = $(document).height();
 		hero_section_height = hero_section.height();
-	});
+	}
+
+	$(window).on('resize', debounce(onResize, 150));
 
 	/* ----- EVENT: On Window Load  ----- */ 
 	hero_section.css("transform", "translateY(0)");	
@@ -81,16 +82,12 @@ $(function(){
 		hero_section.css("opacity", "1");
 	}, 600);
 
-
-	/* USE rAF FOR OPTIMIZING */ 
-
 	function onScroll(){
 
 		const scrollAmnt = $(document).scrollTop();
 		const hero_section_fromTop = (hero_section.offset().top + hero_section_height);
 		const about_section_fromTop = (about_section.offset().top + about_section_height);
-	
-	   
+
 		/* ----- Control Navigation Behavior On Scroll ----- */
 		isScrolling = true;
 		if(isScrolling){
