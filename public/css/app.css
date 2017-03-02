@@ -566,7 +566,8 @@ template {
   right: 0;
   bottom: 0;
   height: 100% !important;
-  background-color: #111;
+  background: -webkit-linear-gradient(40deg, black 85%, #404040);
+  background: linear-gradient(50deg, black 85%, #404040);
   z-index: -100;
 }
 
@@ -771,7 +772,7 @@ section.brief-intro {
   top: 14rem;
   width: 100%;
   text-align: left;
-  opacity: 0;
+  opacity: 1;
   -webkit-transition: opacity 2000ms cubic-bezier(0.19, 1, 0.22, 1), -webkit-transform 1000ms cubic-bezier(0.19, 1, 0.22, 1);
   transition: opacity 2000ms cubic-bezier(0.19, 1, 0.22, 1), -webkit-transform 1000ms cubic-bezier(0.19, 1, 0.22, 1);
   transition: transform 1000ms cubic-bezier(0.19, 1, 0.22, 1), opacity 2000ms cubic-bezier(0.19, 1, 0.22, 1);
@@ -797,15 +798,13 @@ section.brief-intro .intro-social {
 
 /* ------------ SECTION: Work ------------ */
 section.about {
-  position: relative;
-  opacity: 0;
-  margin: 18rem 0 0;
+  position: absolute;
+  opacity: 1;
+  margin: 34rem 0 0;
   -webkit-transition: opacity 1500ms cubic-bezier(0.19, 1, 0.22, 1) 0ms, -webkit-transform 1500ms cubic-bezier(0.19, 1, 0.22, 1) 0ms;
   transition: opacity 1500ms cubic-bezier(0.19, 1, 0.22, 1) 0ms, -webkit-transform 1500ms cubic-bezier(0.19, 1, 0.22, 1) 0ms;
   transition: transform 1500ms cubic-bezier(0.19, 1, 0.22, 1) 0ms, opacity 1500ms cubic-bezier(0.19, 1, 0.22, 1) 0ms;
   transition: transform 1500ms cubic-bezier(0.19, 1, 0.22, 1) 0ms, opacity 1500ms cubic-bezier(0.19, 1, 0.22, 1) 0ms, -webkit-transform 1500ms cubic-bezier(0.19, 1, 0.22, 1) 0ms;
-  -webkit-transform: translateY(20rem);
-  transform: translateY(20rem);
 }
 
 section.about p.about-me {

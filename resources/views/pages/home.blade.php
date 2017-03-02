@@ -5,7 +5,7 @@
 @section('content')
 	<main>
 		<header>
-			<section class="brief-intro">
+			<section class="brief-intro" data-parallax>
 				<div class="intro-main">
 					<p>I'm a <span class="merriweather-bold">Front-End Engineer</span> and <span class="merriweather-bold">User Interface Designer</span> with a passion for solving problems and bringing ideas to life.</p>
 				</div>
@@ -20,7 +20,7 @@
 			</section>
 		</header>
 
-		<section id="aboutme" class="about">
+		<section id="aboutme" class="about" data-parallax>
 			<p class="source-code-5 about-me">Hello, I'm Javier Torrez. I work closely with established companies and startups who want to <span class="merriweather-bold">prototype, build, and launch their next product idea</span>. I'm currently freelancing, but I'm also looking for opportunities to work as a front-end engineer with companies and teams <span class="merriweather-bold">working on challenging problems.</span> 
 
 			If you'd like to hire me, get a free consulation, or just grab coffee, feel free to <a href="" class="u-link">get in touch.</a></p>

@@ -1,9 +1,9 @@
 $(function(){
-
 	const debounce = require("lodash.debounce");
 
-	/* ---- Fallbacks ---- */
-	/* requestAnimationFrame fallback */
+	/* ------------ Fallbacks/Polyfills ---------------- */
+
+	/* -- rAF -- */
 	window.requestAnimationFrame = window.requestAnimationFrame
                                    || window.mozRequestAnimationFrame
                                    || window.webkitRequestAnimationFrame
@@ -20,7 +20,6 @@ $(function(){
 	var particles_bg = $("#particles-bg");
 
 	/* ----- Affected By Window Change ------ */
-
 	var bg_height = $("footer").offset().top + $("footer").outerHeight() - 16;
 	var window_height = $(window).height();
 	var document_height = $(document).height();
@@ -42,7 +41,6 @@ $(function(){
 	var work_section_offset = work_section.offset().top; 
 
 		/* ----- Image Containers ----- */
-
 		var img_container = $(".img-container");
 		var img_container_offset = img_container.offset().top;
 
@@ -54,17 +52,15 @@ $(function(){
 	var menu = $("nav .menu");
 
 		/* -- Link --*/
-		var about_link = $(".menu-container li a[href='#aboutme']");
-		var work_link = $(".menu-container li a[href='#work']");
-		var contact_link = $(".menu-container li a[href='#contact']");
+		var about_link = $("a[href='#aboutme']");
+		var work_link = $("a[href='#work']");
+		var contact_link = $("a[href='#contact']");
 
 	/* ----- EVENT: On Window Resize  ----- */
 
-	/* DEBOUNCE THIS */ 
-
 	function onResize(){
 		particles_bg.css("height", bg_height);
-		
+
 		/* ---- Updating Heights ---- */
 		window_height = $(window).height();
 		document_height = $(document).height();
@@ -82,11 +78,66 @@ $(function(){
 		hero_section.css("opacity", "1");
 	}, 600);
 
-	function onScroll(){
 
-		const scrollAmnt = $(document).scrollTop();
+	/* ----- TESTING NEW SCROLL OPTIMIZATION ------ */
+	let ticking = false,
+		currentScrollY = 0; 
+
+	let parallaxElements = [];
+
+	function calcProps(){	
+		$("[data-parallax]").each((i, el) => {
+
+			let parallaxEl = {};
+			parallaxEl.element = $(el);
+			parallaxEl.elHeight = parallaxEl.element.height(); 
+			parallaxEl.elOffset = parallaxEl.element.offset().top;
+			parallaxEl.elBottom = parallaxEl.element.offset().top + (parallaxEl.elHeight);
+
+			parallaxElements.push(parallaxEl);
+		});
+	}
+
+	calcProps(); 	
+
+	function onScroll2(){
+		currentScrollY = $(document).scrollTop();
+		requestUpdate(); 
+	}
+
+	function requestUpdate(){
+		if(!ticking){
+			requestAnimationFrame(update);
+			ticking = true; 
+		}
+	}
+
+	function update(){
+
+		let scrollBy = -(currentScrollY / 2).toFixed(2);
+		console.log(scrollBy);
+
+		parallaxElements.forEach(function(el, i){
+			let currentEl = el.element;
+			currentEl.css('transform', `translate3d(0, ${scrollBy * 2}px, 0`);
+		});
+
+		ticking = false;
+	}
+
+	/* ----- EVENT LISTENER: On Scroll  ----- */ 
+	$(window).on('scroll', onScroll2);
+
+	function onScroll(){	
+		const currentScrollY = $(document).scrollTop();
 		const hero_section_fromTop = (hero_section.offset().top + hero_section_height);
 		const about_section_fromTop = (about_section.offset().top + about_section_height);
+
+		let parallaxElements = document.querySelectorAll("[data-parallax]");
+
+		for(let i = 0, len = parallaxElements.length; i < len; i++){
+			console.log("running");
+		}
 
 		/* ----- Control Navigation Behavior On Scroll ----- */
 		isScrolling = true;
@@ -108,21 +159,21 @@ $(function(){
 		}
 
 		/* ----- Adjust Navigation Elements Active State ----- */
-		if(scrollAmnt < (about_section.offset().top + about_section_height) && scrollAmnt < (about_section.offset().top + about_section_height) - 50){
+		if(currentScrollY < (about_section.offset().top + about_section_height) && currentScrollY < (about_section.offset().top + about_section_height) - 50){
 			about_link.removeClass().addClass("active");
 		}
 		else{
 			about_link.removeClass();
 		}
 
-		if((scrollAmnt > (about_section.offset().top + about_section_height) - 50) && scrollAmnt < (document_height - window_height)){
+		if((currentScrollY > (about_section.offset().top + about_section_height) - 50) && currentScrollY < (document_height - window_height)){
 			work_link.removeClass().addClass("active");
 		}
 		else{
 			work_link.removeClass();
 		}
 
-		if(scrollAmnt >= (document_height - window_height)){
+		if(currentScrollY >= (document_height - window_height)){
 			contact_link.removeClass().addClass("active");
 		}
 		else{
@@ -130,11 +181,12 @@ $(function(){
 		}
 
 		/* -----  Section: Hero Section  ----- */
+
 		/* ---- Control Movement ---- */
-		if(scrollAmnt >= 0 && scrollAmnt < about_section.offset().top){
-			var newPos = -(scrollAmnt / 3);
+		if(currentScrollY > 0 && currentScrollY < about_section.offset().top){
+			var newPos = -(currentScrollY / 3);
 			hero_section.css('transform', 'translateY(' + (newPos * 2) + 'px)');
-			var trigger_calc = hero_section.offset().top - scrollAmnt;
+			var trigger_calc = hero_section.offset().top - currentScrollY;
 			
 
 			/* -- Control Opacity -- */
@@ -149,26 +201,26 @@ $(function(){
 			    } 
 			}
 
-		    if(scrollAmnt < (hero_section_fromTop - 200)){
+		    if(currentScrollY < (hero_section_fromTop - 200)){
 		    	hero_section.css("opacity", 1);
 		    }
 		}
 
 		/* -----  Section: About Section  ----- */
-		if((scrollAmnt + window_height) > (about_section_offset + 40)){
+		if((currentScrollY + window_height) > (about_section_offset + 40)){
 			
-			let scroll_calc = (scrollAmnt + window_height) - about_section_offset + 40;
+			let scroll_calc = (currentScrollY + window_height) - about_section_offset + 40;
 			var scroll_by = - (scroll_calc/4);
 			about_section.css({ "transform": "translateY(" + scroll_by + "px)", 
 								"opacity": "1"});
 		}
-		else if((scrollAmnt + window_height) < (about_section_offset - 10)){
+		else if((currentScrollY + window_height) < (about_section_offset - 10)){
 			about_section.css({ "transform": "translateY(22rem)", 
 								"opacity": "0"} );
 		}
 
 		/* ----- Section: Work Section ----- */ 
-		 if(scrollAmnt > (about_section_fromTop - 170)){
+		 if(currentScrollY > (about_section_fromTop - 170)){
 		 	about_section.css("opacity", "0");
 			work_section.css({"opacity" : "1", "transform" : "translateY(0)"});
 		}
@@ -178,7 +230,7 @@ $(function(){
 		}
 
 		/* ----- Section: Footer  ----- */ 
-		if((scrollAmnt + $(window).height()) >= footer_section_offset){
+		if((currentScrollY + $(window).height()) >= footer_section_offset){
 			footer_section.css("opacity", "1");
 		}
 		else{
@@ -187,8 +239,6 @@ $(function(){
 	}
 
 
-	/* ----- EVENT LISTENER: On Scroll  ----- */ 
-	$(window).on('scroll', () => { requestAnimationFrame(onScroll) });
 
 	/* ---- Smooth Scrolling ---- */ 
 	var currentHashtag = "";
