@@ -90,9 +90,9 @@ $(function(){
 
 			let parallaxEl = {};
 			parallaxEl.element = $(el);
-			parallaxEl.elHeight = parallaxEl.element.height(); 
-			parallaxEl.elOffset = parallaxEl.element.offset().top;
-			parallaxEl.elBottom = parallaxEl.element.offset().top + (parallaxEl.elHeight);
+			parallaxEl.height = parallaxEl.element.height(); 
+			parallaxEl.offset = parallaxEl.element.offset().top;
+			parallaxEl.bottom = parallaxEl.element.offset().top + (parallaxEl.elHeight);
 
 			parallaxElements.push(parallaxEl);
 		});
@@ -114,12 +114,37 @@ $(function(){
 
 	function update(){
 
-		let scrollBy = -(currentScrollY / 2).toFixed(2);
-		console.log(scrollBy);
+		let scrollBy = -(currentScrollY / 3).toFixed(2);
+		let aboutFromTop = (about_section.offset().top + about_section_height).toFixed(2) + 100;
+
+		let isPastAbout = currentScrollY > aboutFromTop;
 
 		parallaxElements.forEach(function(el, i){
 			let currentEl = el.element;
-			currentEl.css('transform', `translate3d(0, ${scrollBy * 2}px, 0`);
+			let isBriefIntro = currentEl[0].className.includes('brief-intro');
+			let isAboutSec = currentEl[0].className.includes('about');
+
+			let currentElHeight = currentEl.height;
+			let currentElBottom = parseInt($(currentEl).offset().top.toFixed(0)) + el.height;
+			let isNotScrolledPast = (currentScrollY + 150) < currentElBottom;
+			let isOnScreen = (currentScrollY + $(window).height()) > (currentElBottom - (el.height/2));
+
+			if(isBriefIntro && (scrollBy <= -120)){
+				currentEl.css('transform', 'translate3d(0, -120px, 0');
+			} else if(isAboutSec && (scrollBy <= -210)){
+				currentEl.css('transform', 'translate3d(0, -210px, 0');
+			} else {
+				currentEl.css('transform', `translate3d(0, ${scrollBy * 2.5}px, 0`);
+			}
+
+			if(isNotScrolledPast && isOnScreen){
+				currentEl.css('opacity', '1');
+			} else {
+				currentEl.css('opacity', '0');
+			}
+
+
+			
 		});
 
 		ticking = false;
