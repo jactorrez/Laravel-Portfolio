@@ -2,7 +2,6 @@ $(function(){
 	const debounce = require("lodash.debounce");
 
 	/* ------------ Fallbacks/Polyfills ---------------- */
-
 	/* -- rAF -- */
 	window.requestAnimationFrame = window.requestAnimationFrame
                                    || window.mozRequestAnimationFrame
@@ -100,7 +99,7 @@ $(function(){
 
 	calcProps(); 	
 
-	function onScroll2(){
+	function onScroll(){
 		currentScrollY = $(document).scrollTop();
 		requestUpdate(); 
 	}
@@ -112,78 +111,103 @@ $(function(){
 		}
 	}
 
+	function changeMenuOpacity(){
+		// Set opacity to 50% of original while use is scrolling
+		menu.css('opacity', 0.5);
+
+		// On last scroll, if 450ms pass, menu opacity will go back to normal (user stopped scrolling)
+		setTimeout(function(){
+			menu.css('opacity', 1);
+		}, 450);
+	}
+
 	function update(){
+		// Change menu opacity while scrolling
+		
+		// Calculate displacement of parallax elements based on scroll position
+		let scrollBy = parseInt(-(currentScrollY / 3).toFixed(2));
 
-		let scrollBy = -(currentScrollY / 3).toFixed(2);
-		let aboutFromTop = (about_section.offset().top + about_section_height).toFixed(2) + 100;
-
-		let isPastAbout = currentScrollY > aboutFromTop;
-
-		parallaxElements.forEach(function(el, i){
-			let currentEl = el.element;
-			let isBriefIntro = currentEl[0].className.includes('brief-intro');
-			let isAboutSec = currentEl[0].className.includes('about');
-
-			let currentElHeight = currentEl.height;
-			let currentElBottom = parseInt($(currentEl).offset().top.toFixed(0)) + el.height;
-			let isNotScrolledPast = (currentScrollY + 150) < currentElBottom;
-			let isOnScreen = (currentScrollY + $(window).height()) > (currentElBottom - (el.height/2));
-
-			if(isBriefIntro && (scrollBy <= -120)){
-				currentEl.css('transform', 'translate3d(0, -120px, 0');
-			} else if(isAboutSec && (scrollBy <= -210)){
-				currentEl.css('transform', 'translate3d(0, -210px, 0');
-			} else {
-				currentEl.css('transform', `translate3d(0, ${scrollBy * 2.5}px, 0`);
-			}
-
-			if(isNotScrolledPast && isOnScreen){
-				currentEl.css('opacity', '1');
-			} else {
-				currentEl.css('opacity', '0');
-			}
+		let aboutSecBottom = parseInt((about_section.offset().top + about_section_height).toFixed(0));
+		let aboutDifFromTop = (about_section.offset().top - currentScrollY).toFixed(0);
+		let isNotPastAbout = currentScrollY < (aboutSecBottom + 350);
+		let workSecFromTop = work_section.offset().top;
 
 
-			
-		});
+		// Check if user scrolled beyond last parallax element (about section)
+		// If not, execute looping logic on each parallax element
+		if(isNotPastAbout){
+
+			// Loop through each parallax element
+			parallaxElements.forEach(function(el, i){
+
+				// Store information re: current parallax element in the loop
+				let currentEl = el.element;
+				let currentElHeight = currentEl.height;
+				let currentElBottom = parseInt($(currentEl).offset().top.toFixed(0)) + el.height;
+
+				// Abstract conditionals
+				let isBriefIntro = currentEl[0].className.includes('brief-intro');
+				let isAboutSec = currentEl[0].className.includes('about');
+
+				// Check if user scrolled past current parallax element
+				let isNotScrolledPast = (currentScrollY + 100) < currentElBottom;
+
+				// Check if current parallax element is visible to user (on screen)
+				let isOnScreen = (currentScrollY + $(window).height()) > (currentElBottom - (el.height/2));
+
+				// Set a "locked" location after user scrolls a certain about of pixels down the page
+				// This is done to limit how far a parallax element goes off the page, 
+				// stops browser from doing unessesary and expensive calculations (no repaints!)
+				if(isBriefIntro && (scrollBy <= -120)){
+					currentEl.css('transform', 'translate3d(0, -120px, 0');
+				} 
+				else if(isAboutSec && (scrollBy <= -100)){
+					currentEl.css('transform', `translate3d(0, -100}px, 0`);
+				} 
+				else {
+					currentEl.css('transform', `translate3d(0, ${scrollBy * 2.5}px, 0`);
+				}
+
+				// Check if user scrolled past an element (change opacity to 0) or if they didn't
+				// and element is also visible on the screen (change opacity to 1)
+				if(isNotScrolledPast && isOnScreen){
+					currentEl.css('opacity', '1');
+				} else {
+					currentEl.css('opacity', '0');
+				}
+			});
+		}
+
+		// Change visibilty of work section based on how far the user has scrolled 
+		let workSectionIsVisible = (currentScrollY + window_height) > (aboutSecBottom + 120) &&
+								   (currentScrollY) < 600;
+
+		let workSectionIsNotVisible = (currentScrollY + window_height) < (aboutSecBottom + 120)
+
+		if(workSectionIsVisible){
+			work_section.css({"opacity" : "1", "transform": "translateY(-11rem)"});
+		} else if(workSectionIsNotVisible){
+			work_section.css({"opacity" : "0", "transform" : "translateY(8rem)"});
+		}
+
+		// Change visibility of work section based on how far the user has scrolled
+
+		let footerIsVisible = (currentScrollY + window_height) >= footer_section_offset;
+
+		if(footerIsVisible){
+			footer_section.css("opacity", "1");
+		}
+		else{
+			footer_section.css("opacity", "0");
+		}
+
+		changeMenuOpacity();
+		adjustNavLinkState();
 
 		ticking = false;
 	}
 
-	/* ----- EVENT LISTENER: On Scroll  ----- */ 
-	$(window).on('scroll', onScroll2);
-
-	function onScroll(){	
-		const currentScrollY = $(document).scrollTop();
-		const hero_section_fromTop = (hero_section.offset().top + hero_section_height);
-		const about_section_fromTop = (about_section.offset().top + about_section_height);
-
-		let parallaxElements = document.querySelectorAll("[data-parallax]");
-
-		for(let i = 0, len = parallaxElements.length; i < len; i++){
-			console.log("running");
-		}
-
-		/* ----- Control Navigation Behavior On Scroll ----- */
-		isScrolling = true;
-		if(isScrolling){
-			menu.css('opacity', 0.5);
-		}
-		clearInterval($.data(this, "scrollCheck")); 
-
-		$.data(this, "scrollCheck", setInterval(function(){
-			isScrolling = false;
-			changeOpacity();
-		}, 250));
-
-		function changeOpacity(){
-			menu.css('opacity', 1);
-			setTimeout(() => {
-				clearInterval($.data(this, "scrollCheck")); 
-			}, 250);
-		}
-
-		/* ----- Adjust Navigation Elements Active State ----- */
+	function adjustNavLinkState(){
 		if(currentScrollY < (about_section.offset().top + about_section_height) && currentScrollY < (about_section.offset().top + about_section_height) - 50){
 			about_link.removeClass().addClass("active");
 		}
@@ -205,65 +229,10 @@ $(function(){
 			contact_link.removeClass();
 		}
 
-		/* -----  Section: Hero Section  ----- */
-
-		/* ---- Control Movement ---- */
-		if(currentScrollY > 0 && currentScrollY < about_section.offset().top){
-			var newPos = -(currentScrollY / 3);
-			hero_section.css('transform', 'translateY(' + (newPos * 2) + 'px)');
-			var trigger_calc = hero_section.offset().top - currentScrollY;
-			
-
-			/* -- Control Opacity -- */
-			if(trigger_calc < 0){
-				if(Math.abs(trigger_calc) > hero_section_trigger){
-				
-					let calc_begin = Math.abs(trigger_calc) - (hero_section_trigger);
-					var calc_opacity = Math.max(0, 1 - calc_begin/100); 
-					var new_opacity = calc_opacity;
-
-					hero_section.css('opacity', new_opacity);
-			    } 
-			}
-
-		    if(currentScrollY < (hero_section_fromTop - 200)){
-		    	hero_section.css("opacity", 1);
-		    }
-		}
-
-		/* -----  Section: About Section  ----- */
-		if((currentScrollY + window_height) > (about_section_offset + 40)){
-			
-			let scroll_calc = (currentScrollY + window_height) - about_section_offset + 40;
-			var scroll_by = - (scroll_calc/4);
-			about_section.css({ "transform": "translateY(" + scroll_by + "px)", 
-								"opacity": "1"});
-		}
-		else if((currentScrollY + window_height) < (about_section_offset - 10)){
-			about_section.css({ "transform": "translateY(22rem)", 
-								"opacity": "0"} );
-		}
-
-		/* ----- Section: Work Section ----- */ 
-		 if(currentScrollY > (about_section_fromTop - 170)){
-		 	about_section.css("opacity", "0");
-			work_section.css({"opacity" : "1", "transform" : "translateY(0)"});
-		}
-
-		else{
-			work_section.css({"opacity" : "0", "transform" : "translateY(20rem)"});
-		}
-
-		/* ----- Section: Footer  ----- */ 
-		if((currentScrollY + $(window).height()) >= footer_section_offset){
-			footer_section.css("opacity", "1");
-		}
-		else{
-			footer_section.css("opacity", "0");
-		}
 	}
 
-
+	/* ----- EVENT LISTENER: On Scroll  ----- */ 
+	$(window).on('scroll', onScroll);
 
 	/* ---- Smooth Scrolling ---- */ 
 	var currentHashtag = "";

@@ -7,7 +7,7 @@
 		<header>
 			<section class="brief-intro" data-parallax>
 				<div class="intro-main">
-					<p>I'm a <span class="merriweather-bold">Front-End Engineer</span> and <span class="merriweather-bold">User Interface Designer</span> with a passion for solving problems and bringing ideas to life.</p>
+					<p>I'm a <span class="merriweather-bold">Front-End Engineer</span> and <span class="merriweather-bold">User Interface Designer</span> with a passion for solving problems and bringing product ideas to life.</p>
 				</div>
 				<div class="intro-social">
 					<ul class="social-links">
