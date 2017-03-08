@@ -1,8 +1,14 @@
 $(function(){
+	// -------- Third-party libraries --------
+
 	const debounce = require("lodash.debounce");
 
-	/* ------------ Fallbacks/Polyfills ---------------- */
-	/* -- rAF -- */
+	particlesJS.load('particles-bg', 'js/particles.json');
+	const particles_bg = $("#particles-bg");
+
+	// -------- Fallbacks/Polyfills --------
+
+	// rAF
 	window.requestAnimationFrame = window.requestAnimationFrame
                                    || window.mozRequestAnimationFrame
                                    || window.webkitRequestAnimationFrame
@@ -13,78 +19,50 @@ $(function(){
 	                              || window.mozCancelAnimationFrame
 	                              || function(requestID){clearTimeout(requestID)} 
 
+	// -------- Variables --------
 
-	/* ----- Third Party Libraries ----- */ 
-	particlesJS.load('particles-bg', 'js/particles.json');
-	var particles_bg = $("#particles-bg");
+	// Affected by resize event
+	let bgHeight = $("footer").offset().top + $("footer").outerHeight() - 16;
+	let windowHeight = $(window).height();
+	let documentHeight = $(document).height();
 
-	/* ----- Affected By Window Change ------ */
-	var bg_height = $("footer").offset().top + $("footer").outerHeight() - 16;
-	var window_height = $(window).height();
-	var document_height = $(document).height();
-	var isScrolling; 
+	// Hero section 
+	let heroSection = $(".brief-intro");
+	let heroSectionHeight = heroSection.height();
 
-	/* ----- Hero Section ----- */ 
-	var hero_section = $(".brief-intro");
-	var hero_section_height = hero_section.height();
-	var hero_section_trigger = (hero_section_height / 2) - 100;
-	const hero_section_fromTop = (hero_section.offset().top + hero_section_height);
+	// About section
+	let aboutSection = $(".about");
+	let aboutSectionHeight = aboutSection.innerHeight();
 
-	/* ----- About Section ----- */
-	var about_section = $(".about");
-	var about_section_height = about_section.innerHeight();
-	var about_section_offset = about_section.offset().top;
+	// Work section 
+	let workSection = $("section.work-container");
 
-	/* ------ Work Section ------ */ 
-	var work_section = $("section.work-container");
-	var work_section_offset = work_section.offset().top; 
+	// Footer section 
+	let footerSection = $("footer");
+	let footerSectionTopOffset = footerSection.offset().top; 
 
-		/* ----- Image Containers ----- */
-		var img_container = $(".img-container");
-		var img_container_offset = img_container.offset().top;
+	// Navigation bar
+	let menu = $("nav .menu");
 
-	/* ------ Footer Section ------ */ 
-	var footer_section = $("footer");
-	var footer_section_offset = footer_section.offset().top; 
-
-	/* ------ Navigation ----- */ 
-	var menu = $("nav .menu");
-
-		/* -- Link --*/
-		var about_link = $("a[href='#aboutme']");
-		var work_link = $("a[href='#work']");
-		var contact_link = $("a[href='#contact']");
-
-	/* ----- EVENT: On Window Resize  ----- */
-
-	function onResize(){
-		particles_bg.css("height", bg_height);
-
-		/* ---- Updating Heights ---- */
-		window_height = $(window).height();
-		document_height = $(document).height();
-		hero_section_height = hero_section.height();
-	}
-
-	$(window).on('resize', debounce(onResize, 150));
-
-	/* ----- EVENT: On Window Load  ----- */ 
-	hero_section.css("transform", "translateY(0)");	
-
-	setTimeout(function(){
-		$("nav").css("opacity", "1");
-		$(".logo").css("opacity", "1");
-		hero_section.css("opacity", "1");
-	}, 600);
-
-
-	/* ----- TESTING NEW SCROLL OPTIMIZATION ------ */
 	let ticking = false,
 		currentScrollY = 0; 
 
 	let parallaxElements = [];
+	let pageElements = [];
 
-	function calcProps(){	
+	// -------- On window load --------
+	heroSection.css("transform", "translateY(0)");	
+
+	setTimeout(function(){
+		$("nav").css("opacity", "1");
+		$(".logo").css("opacity", "1");
+		heroSection.css("opacity", "1");	
+	}, 600);
+
+	calcParallaxProps(); 	
+	calcAllElProps();
+
+	function calcParallaxProps(){	
 		$("[data-parallax]").each((i, el) => {
 
 			let parallaxEl = {};
@@ -97,7 +75,23 @@ $(function(){
 		});
 	}
 
-	calcProps(); 	
+	function calcAllElProps(){
+		$("[data-section]").each((i, el) => {
+			let pageElement = {};
+			pageElement.element = $(el);
+			pageElement.height = pageElement.element.height();
+			pageElements.push(pageElement);
+		});	
+	}
+
+	function onResize(){
+		particles_bg.css("height", bgHeight);
+
+		/* ---- Updating Heights ---- */
+		windowHeight = $(window).height();
+		documentHeight = $(document).height();
+		footerSectionTopOffset = footerSection.offset().top; 
+	}
 
 	function onScroll(){
 		currentScrollY = $(document).scrollTop();
@@ -111,7 +105,7 @@ $(function(){
 		}
 	}
 
-	function changeMenuOpacity(){
+	function adjustMenuOpacity(){
 		// Set opacity to 50% of original while use is scrolling
 		menu.css('opacity', 0.5);
 
@@ -121,17 +115,59 @@ $(function(){
 		}, 450);
 	}
 
+
+	function adjustNavItemsState(){
+
+		pageElements.forEach((el, i) => {
+			let prevEl = pageElements[i-1] ? pageElements[i-1].element : null,
+			    nextEl = pageElements[i+1] ? pageElements[i+1].element : null,
+			    currentEl = el.element;
+			    currentElId = el.element.attr('id');
+
+			if(prevEl && nextEl){
+				let prevElBottom = prevEl.offset().top + prevEl.height();
+				let prevElId = prevEl.attr('id');
+				let nextElId = nextEl.attr('id');
+				let nextElTop = nextEl.offset().top;
+
+				if(currentScrollY > (prevElBottom - (prevEl.height()/2)) && (currentScrollY + windowHeight) < (nextElTop + 200)){
+					$(`a[href='#${currentElId}']`).addClass("active");
+					$(`a[href='#${prevElId}'`).removeClass("active");
+					$(`a[href='#${nextElId}'`).removeClass("active");
+				}
+			} else if(nextEl){
+				let nextElId = nextEl.attr('id');
+
+				if(currentScrollY < (el.element.offset().top + (el.element.height()/2))){
+					$(`a[href='#${nextElId}'`).removeClass("active");
+					$(`a[href='#${currentElId}']`).addClass("active");
+				}
+
+			} else if(prevEl){
+				let prevElId = prevEl.attr('id');
+				if((currentScrollY + windowHeight) > (currentEl.offset().top + 50)){
+					$(`a[href='#${currentElId}']`).addClass("active");
+					$(`a[href='#${prevElId}'`).removeClass("active");
+				}
+			}
+		});	
+	}
+
 	function update(){
-		// Change menu opacity while scrolling
 		
 		// Calculate displacement of parallax elements based on scroll position
 		let scrollBy = parseInt(-(currentScrollY / 3).toFixed(2));
 
-		let aboutSecBottom = parseInt((about_section.offset().top + about_section_height).toFixed(0));
-		let aboutDifFromTop = (about_section.offset().top - currentScrollY).toFixed(0);
-		let isNotPastAbout = currentScrollY < (aboutSecBottom + 350);
-		let workSecFromTop = work_section.offset().top;
+		// About section props
+		let aboutSecBottom = parseInt((aboutSection.offset().top + aboutSectionHeight).toFixed(0));
 
+		// Work section props
+		let workSecBottom = (workSection.offset().top + workSection.height());
+
+		// Footer section props
+		let footerSecBottom = (footerSection.offset().top + footerSection.height());
+
+		let isNotPastAbout = currentScrollY < (aboutSecBottom + 350);
 
 		// Check if user scrolled beyond last parallax element (about section)
 		// If not, execute looping logic on each parallax element
@@ -179,76 +215,56 @@ $(function(){
 		}
 
 		// Change visibilty of work section based on how far the user has scrolled 
-		let workSectionIsVisible = (currentScrollY + window_height) > (aboutSecBottom + 120) &&
+		let workSectionIsVisible = (currentScrollY + windowHeight) > (aboutSecBottom + 120) &&
 								   (currentScrollY) < 600;
 
-		let workSectionIsNotVisible = (currentScrollY + window_height) < (aboutSecBottom + 120)
+		let workSectionIsNotVisible = (currentScrollY + windowHeight) < (aboutSecBottom + 120)
 
 		if(workSectionIsVisible){
-			work_section.css({"opacity" : "1", "transform": "translateY(-11rem)"});
+			workSection.css({"opacity" : "1", "transform": "translateY(-11rem)"});
 		} else if(workSectionIsNotVisible){
-			work_section.css({"opacity" : "0", "transform" : "translateY(8rem)"});
+			workSection.css({"opacity" : "0", "transform" : "translateY(8rem)"});
 		}
 
-		// Change visibility of work section based on how far the user has scrolled
-
-		let footerIsVisible = (currentScrollY + window_height) >= footer_section_offset;
+		// Change visibility of footer section based on how far the user has scrolled
+		let footerIsVisible = (currentScrollY + windowHeight) >= footerSectionTopOffset;
 
 		if(footerIsVisible){
-			footer_section.css("opacity", "1");
+			footerSection.css("opacity", "1");
 		}
 		else{
-			footer_section.css("opacity", "0");
+			footerSection.css("opacity", "0");
 		}
 
-		changeMenuOpacity();
-		adjustNavLinkState();
+
+		// Change menu opacity while scrolling
+		adjustMenuOpacity();	
+
+		// Change which item in navigation is 'active'
+		adjustNavItemsState();
 
 		ticking = false;
 	}
 
-	function adjustNavLinkState(){
-		if(currentScrollY < (about_section.offset().top + about_section_height) && currentScrollY < (about_section.offset().top + about_section_height) - 50){
-			about_link.removeClass().addClass("active");
-		}
-		else{
-			about_link.removeClass();
-		}
-
-		if((currentScrollY > (about_section.offset().top + about_section_height) - 50) && currentScrollY < (document_height - window_height)){
-			work_link.removeClass().addClass("active");
-		}
-		else{
-			work_link.removeClass();
-		}
-
-		if(currentScrollY >= (document_height - window_height)){
-			contact_link.removeClass().addClass("active");
-		}
-		else{
-			contact_link.removeClass();
-		}
-
-	}
-
-	/* ----- EVENT LISTENER: On Scroll  ----- */ 
+	/* ----- Attaching event listeners to window  ----- */ 
 	$(window).on('scroll', onScroll);
+	$(window).on('resize', debounce(onResize, 150));
 
-	/* ---- Smooth Scrolling ---- */ 
-	var currentHashtag = "";
+	// Smooth Scrolling 
+	let currentHashtag = "";
 	$(".menu a").click(function(e){
 		e.preventDefault();
 
 		if(currentHashtag !== this.hash){
-			//Calculate Destination
-			var href = this.hash;
-			var dest = 0;
-			if($(this.hash).offset().top > $(document).height() - $(window).height()){
+			//Calculate values to reach destination
+			let href = this.hash;
+			let dest = 0;
+			if($(this.hash).offset().top > ($(document).height() - $(window).height())){
 				dest = $(document).height() - $(window).height();
 			}
 
 			else if(this.hash === "#work"){
-				var that = this;
+				let that = this;
 				dest = $(that.hash).offset().top - 100;
 
 				setTimeout(function(){
@@ -264,6 +280,8 @@ $(function(){
 			}
 
 			scrollbarTo(dest, href);
+		} else {
+			return;
 		}
 	});
 

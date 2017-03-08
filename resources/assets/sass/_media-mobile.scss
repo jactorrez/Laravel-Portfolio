@@ -50,10 +50,10 @@
 	}
 	
 	section.about{
-		margin-top: 15rem;
+		margin-top: 20rem;
 
 		p.about-me{
-			width: initial;
+			width: 90%;
 			font-size: $fontSize-base;
 			line-height: 1.5rem;
 			padding: 0;
@@ -63,13 +63,11 @@
 	/* --------- Work --------- */
 
 	section.work-container{
-	margin-top: -10rem;
-			
-		.row{
+		margin: 47rem 0 0;
 
+		.row{
 			[class*="col-"]{
 				padding: 0;
-
 			}
 
 			.col-2{
@@ -81,14 +79,12 @@
 			}
 		}
 
-
 		& > .row > div[class*="col-"]{
 			margin-bottom: 3rem;
 		}
 	}
 
 	footer{
-		margin-top: 10rem;
 
 		section.skillset-section{
 			width: 100%; 

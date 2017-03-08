@@ -1171,17 +1171,17 @@ footer section.contact-section .social ul li a:hover {
     padding-right: 0;
   }
   section.about {
-    margin-top: 15rem;
+    margin-top: 20rem;
   }
   section.about p.about-me {
-    width: initial;
+    width: 90%;
     font-size: 16px;
     line-height: 1.5rem;
     padding: 0;
   }
   /* --------- Work --------- */
   section.work-container {
-    margin-top: -10rem;
+    margin: 47rem 0 0;
   }
   section.work-container .row [class*="col-"] {
     padding: 0;
@@ -1194,9 +1194,6 @@ footer section.contact-section .social ul li a:hover {
   }
   section.work-container > .row > div[class*="col-"] {
     margin-bottom: 3rem;
-  }
-  footer {
-    margin-top: 10rem;
   }
   footer section.skillset-section {
     width: 100%;
