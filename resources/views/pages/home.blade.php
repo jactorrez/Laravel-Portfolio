@@ -5,9 +5,9 @@
 @section('content')
 	<main>
 		<header>
-			<section class="brief-intro">
+			<section class="brief-intro" data-parallax>
 				<div class="intro-main">
-					<p>I'm a <span class="merriweather-bold">Front-End Engineer</span> and <span class="merriweather-bold">User Interface Designer</span> with a passion for solving problems and bringing ideas to life.</p>
+					<p>I'm a <span class="merriweather-bold">Front-End Engineer</span> and <span class="merriweather-bold">User Interface Designer</span> with a passion for solving problems and bringing product ideas to life.</p>
 				</div>
 				<div class="intro-social">
 					<ul class="social-links">
@@ -20,13 +20,13 @@
 			</section>
 		</header>
 
-		<section id="aboutme" class="about">
+		<section id="aboutme" class="about" data-parallax data-section>
 			<p class="source-code-5 about-me">Hello, I'm Javier Torrez. I work closely with established companies and startups who want to <span class="merriweather-bold">prototype, build, and launch their next product idea</span>. I'm currently freelancing, but I'm also looking for opportunities to work as a front-end engineer with companies and teams <span class="merriweather-bold">working on challenging problems.</span> 
 
 			If you'd like to hire me, get a free consulation, or just grab coffee, feel free to <a href="" class="u-link">get in touch.</a></p>
 		</section>
 
-		<section id="work" class="work-container grid-container">
+		<section id="work" class="work-container grid-container" data-section>
 			<div class="row">
 				<div class="col-1">
 					<div class="img-container">
@@ -124,7 +124,7 @@
 		</section>
 	</main>
 
-	<footer id="contact">
+	<footer id="contact" data-section>
 			<section class="skillset-section">
 				<h2>Skillset</h2>
 				<div class="skills-list">

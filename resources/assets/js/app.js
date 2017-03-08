@@ -1,9 +1,14 @@
 $(function(){
+	// -------- Third-party libraries --------
 
 	const debounce = require("lodash.debounce");
 
-	/* ---- Fallbacks ---- */
-	/* requestAnimationFrame fallback */
+	particlesJS.load('particles-bg', 'js/particles.json');
+	const particles_bg = $("#particles-bg");
+
+	// -------- Fallbacks/Polyfills --------
+
+	// rAF
 	window.requestAnimationFrame = window.requestAnimationFrame
                                    || window.mozRequestAnimationFrame
                                    || window.webkitRequestAnimationFrame
@@ -14,197 +19,252 @@ $(function(){
 	                              || window.mozCancelAnimationFrame
 	                              || function(requestID){clearTimeout(requestID)} 
 
+	// -------- Variables --------
 
-	/* ----- Third Party Libraries ----- */ 
-	particlesJS.load('particles-bg', 'js/particles.json');
-	var particles_bg = $("#particles-bg");
+	// Affected by resize event
+	let bgHeight = $("footer").offset().top + $("footer").outerHeight() - 16;
+	let windowHeight = $(window).height();
+	let documentHeight = $(document).height();
 
-	/* ----- Affected By Window Change ------ */
+	// Hero section 
+	let heroSection = $(".brief-intro");
+	let heroSectionHeight = heroSection.height();
 
-	var bg_height = $("footer").offset().top + $("footer").outerHeight() - 16;
-	var window_height = $(window).height();
-	var document_height = $(document).height();
-	var isScrolling; 
+	// About section
+	let aboutSection = $(".about");
+	let aboutSectionHeight = aboutSection.innerHeight();
 
-	/* ----- Hero Section ----- */ 
-	var hero_section = $(".brief-intro");
-	var hero_section_height = hero_section.height();
-	var hero_section_trigger = (hero_section_height / 2) - 100;
-	const hero_section_fromTop = (hero_section.offset().top + hero_section_height);
+	// Work section 
+	let workSection = $("section.work-container");
 
-	/* ----- About Section ----- */
-	var about_section = $(".about");
-	var about_section_height = about_section.innerHeight();
-	var about_section_offset = about_section.offset().top;
+	// Footer section 
+	let footerSection = $("footer");
+	let footerSectionTopOffset = footerSection.offset().top; 
 
-	/* ------ Work Section ------ */ 
-	var work_section = $("section.work-container");
-	var work_section_offset = work_section.offset().top; 
+	// Navigation bar
+	let menu = $("nav .menu");
 
-		/* ----- Image Containers ----- */
+	let ticking = false,
+		currentScrollY = 0; 
 
-		var img_container = $(".img-container");
-		var img_container_offset = img_container.offset().top;
+	let parallaxElements = [];
+	let pageElements = [];
 
-	/* ------ Footer Section ------ */ 
-	var footer_section = $("footer");
-	var footer_section_offset = footer_section.offset().top; 
-
-	/* ------ Navigation ----- */ 
-	var menu = $("nav .menu");
-
-		/* -- Link --*/
-		var about_link = $(".menu-container li a[href='#aboutme']");
-		var work_link = $(".menu-container li a[href='#work']");
-		var contact_link = $(".menu-container li a[href='#contact']");
-
-	/* ----- EVENT: On Window Resize  ----- */
-
-	/* DEBOUNCE THIS */ 
-
-	function onResize(){
-		particles_bg.css("height", bg_height);
-		
-		/* ---- Updating Heights ---- */
-		window_height = $(window).height();
-		document_height = $(document).height();
-		hero_section_height = hero_section.height();
-	}
-
-	$(window).on('resize', debounce(onResize, 150));
-
-	/* ----- EVENT: On Window Load  ----- */ 
-	hero_section.css("transform", "translateY(0)");	
+	// -------- On window load --------
+	heroSection.css("transform", "translateY(0)");	
 
 	setTimeout(function(){
 		$("nav").css("opacity", "1");
 		$(".logo").css("opacity", "1");
-		hero_section.css("opacity", "1");
+		heroSection.css("opacity", "1");	
 	}, 600);
 
+	calcParallaxProps(); 	
+	calcAllElProps();
+
+	function calcParallaxProps(){	
+		$("[data-parallax]").each((i, el) => {
+
+			let parallaxEl = {};
+			parallaxEl.element = $(el);
+			parallaxEl.height = parallaxEl.element.height(); 
+			parallaxEl.offset = parallaxEl.element.offset().top;
+			parallaxEl.bottom = parallaxEl.element.offset().top + (parallaxEl.elHeight);
+
+			parallaxElements.push(parallaxEl);
+		});
+	}
+
+	function calcAllElProps(){
+		$("[data-section]").each((i, el) => {
+			let pageElement = {};
+			pageElement.element = $(el);
+			pageElement.height = pageElement.element.height();
+			pageElements.push(pageElement);
+		});	
+	}
+
+	function onResize(){
+		particles_bg.css("height", bgHeight);
+
+		/* ---- Updating Heights ---- */
+		windowHeight = $(window).height();
+		documentHeight = $(document).height();
+		footerSectionTopOffset = footerSection.offset().top; 
+	}
+
 	function onScroll(){
+		currentScrollY = $(document).scrollTop();
+		requestUpdate(); 
+	}
 
-		const scrollAmnt = $(document).scrollTop();
-		const hero_section_fromTop = (hero_section.offset().top + hero_section_height);
-		const about_section_fromTop = (about_section.offset().top + about_section_height);
-
-		/* ----- Control Navigation Behavior On Scroll ----- */
-		isScrolling = true;
-		if(isScrolling){
-			menu.css('opacity', 0.5);
-		}
-		clearInterval($.data(this, "scrollCheck")); 
-
-		$.data(this, "scrollCheck", setInterval(function(){
-			isScrolling = false;
-			changeOpacity();
-		}, 250));
-
-		function changeOpacity(){
-			menu.css('opacity', 1);
-			setTimeout(() => {
-				clearInterval($.data(this, "scrollCheck")); 
-			}, 250);
-		}
-
-		/* ----- Adjust Navigation Elements Active State ----- */
-		if(scrollAmnt < (about_section.offset().top + about_section_height) && scrollAmnt < (about_section.offset().top + about_section_height) - 50){
-			about_link.removeClass().addClass("active");
-		}
-		else{
-			about_link.removeClass();
-		}
-
-		if((scrollAmnt > (about_section.offset().top + about_section_height) - 50) && scrollAmnt < (document_height - window_height)){
-			work_link.removeClass().addClass("active");
-		}
-		else{
-			work_link.removeClass();
-		}
-
-		if(scrollAmnt >= (document_height - window_height)){
-			contact_link.removeClass().addClass("active");
-		}
-		else{
-			contact_link.removeClass();
-		}
-
-		/* -----  Section: Hero Section  ----- */
-		/* ---- Control Movement ---- */
-		if(scrollAmnt >= 0 && scrollAmnt < about_section.offset().top){
-			var newPos = -(scrollAmnt / 3);
-			hero_section.css('transform', 'translateY(' + (newPos * 2) + 'px)');
-			var trigger_calc = hero_section.offset().top - scrollAmnt;
-			
-
-			/* -- Control Opacity -- */
-			if(trigger_calc < 0){
-				if(Math.abs(trigger_calc) > hero_section_trigger){
-				
-					let calc_begin = Math.abs(trigger_calc) - (hero_section_trigger);
-					var calc_opacity = Math.max(0, 1 - calc_begin/100); 
-					var new_opacity = calc_opacity;
-
-					hero_section.css('opacity', new_opacity);
-			    } 
-			}
-
-		    if(scrollAmnt < (hero_section_fromTop - 200)){
-		    	hero_section.css("opacity", 1);
-		    }
-		}
-
-		/* -----  Section: About Section  ----- */
-		if((scrollAmnt + window_height) > (about_section_offset + 40)){
-			
-			let scroll_calc = (scrollAmnt + window_height) - about_section_offset + 40;
-			var scroll_by = - (scroll_calc/4);
-			about_section.css({ "transform": "translateY(" + scroll_by + "px)", 
-								"opacity": "1"});
-		}
-		else if((scrollAmnt + window_height) < (about_section_offset - 10)){
-			about_section.css({ "transform": "translateY(22rem)", 
-								"opacity": "0"} );
-		}
-
-		/* ----- Section: Work Section ----- */ 
-		 if(scrollAmnt > (about_section_fromTop - 170)){
-		 	about_section.css("opacity", "0");
-			work_section.css({"opacity" : "1", "transform" : "translateY(0)"});
-		}
-
-		else{
-			work_section.css({"opacity" : "0", "transform" : "translateY(20rem)"});
-		}
-
-		/* ----- Section: Footer  ----- */ 
-		if((scrollAmnt + $(window).height()) >= footer_section_offset){
-			footer_section.css("opacity", "1");
-		}
-		else{
-			footer_section.css("opacity", "0");
+	function requestUpdate(){
+		if(!ticking){
+			requestAnimationFrame(update);
+			ticking = true; 
 		}
 	}
 
+	function adjustMenuOpacity(){
+		// Set opacity to 50% of original while use is scrolling
+		menu.css('opacity', 0.5);
 
-	/* ----- EVENT LISTENER: On Scroll  ----- */ 
-	$(window).on('scroll', () => { requestAnimationFrame(onScroll) });
+		// On last scroll, if 450ms pass, menu opacity will go back to normal (user stopped scrolling)
+		setTimeout(function(){
+			menu.css('opacity', 1);
+		}, 450);
+	}
 
-	/* ---- Smooth Scrolling ---- */ 
-	var currentHashtag = "";
+
+	function adjustNavItemsState(){
+
+		pageElements.forEach((el, i) => {
+			let prevEl = pageElements[i-1] ? pageElements[i-1].element : null,
+			    nextEl = pageElements[i+1] ? pageElements[i+1].element : null,
+			    currentEl = el.element;
+			    currentElId = el.element.attr('id');
+
+			if(prevEl && nextEl){
+				let prevElBottom = prevEl.offset().top + prevEl.height();
+				let prevElId = prevEl.attr('id');
+				let nextElId = nextEl.attr('id');
+				let nextElTop = nextEl.offset().top;
+
+				if(currentScrollY > (prevElBottom - (prevEl.height()/2)) && (currentScrollY + windowHeight) < (nextElTop + 200)){
+					$(`a[href='#${currentElId}']`).addClass("active");
+					$(`a[href='#${prevElId}'`).removeClass("active");
+					$(`a[href='#${nextElId}'`).removeClass("active");
+				}
+			} else if(nextEl){
+				let nextElId = nextEl.attr('id');
+
+				if(currentScrollY < (el.element.offset().top + (el.element.height()/2))){
+					$(`a[href='#${nextElId}'`).removeClass("active");
+					$(`a[href='#${currentElId}']`).addClass("active");
+				}
+
+			} else if(prevEl){
+				let prevElId = prevEl.attr('id');
+				if((currentScrollY + windowHeight) > (currentEl.offset().top + 50)){
+					$(`a[href='#${currentElId}']`).addClass("active");
+					$(`a[href='#${prevElId}'`).removeClass("active");
+				}
+			}
+		});	
+	}
+
+	function update(){
+		
+		// Calculate displacement of parallax elements based on scroll position
+		let scrollBy = parseInt(-(currentScrollY / 3).toFixed(2));
+
+		// About section props
+		let aboutSecBottom = parseInt((aboutSection.offset().top + aboutSectionHeight).toFixed(0));
+
+		// Work section props
+		let workSecBottom = (workSection.offset().top + workSection.height());
+
+		// Footer section props
+		let footerSecBottom = (footerSection.offset().top + footerSection.height());
+
+		let isNotPastAbout = currentScrollY < (aboutSecBottom + 350);
+
+		// Check if user scrolled beyond last parallax element (about section)
+		// If not, execute looping logic on each parallax element
+		if(isNotPastAbout){
+
+			// Loop through each parallax element
+			parallaxElements.forEach(function(el, i){
+
+				// Store information re: current parallax element in the loop
+				let currentEl = el.element;
+				let currentElHeight = currentEl.height;
+				let currentElBottom = parseInt($(currentEl).offset().top.toFixed(0)) + el.height;
+
+				// Abstract conditionals
+				let isBriefIntro = currentEl[0].className.includes('brief-intro');
+				let isAboutSec = currentEl[0].className.includes('about');
+
+				// Check if user scrolled past current parallax element
+				let isNotScrolledPast = (currentScrollY + 100) < currentElBottom;
+
+				// Check if current parallax element is visible to user (on screen)
+				let isOnScreen = (currentScrollY + $(window).height()) > (currentElBottom - (el.height/2));
+
+				// Set a "locked" location after user scrolls a certain about of pixels down the page
+				// This is done to limit how far a parallax element goes off the page, 
+				// stops browser from doing unessesary and expensive calculations (no repaints!)
+				if(isBriefIntro && (scrollBy <= -120)){
+					currentEl.css('transform', 'translate3d(0, -120px, 0');
+				} 
+				else if(isAboutSec && (scrollBy <= -100)){
+					currentEl.css('transform', `translate3d(0, -100}px, 0`);
+				} 
+				else {
+					currentEl.css('transform', `translate3d(0, ${scrollBy * 2.5}px, 0`);
+				}
+
+				// Check if user scrolled past an element (change opacity to 0) or if they didn't
+				// and element is also visible on the screen (change opacity to 1)
+				if(isNotScrolledPast && isOnScreen){
+					currentEl.css('opacity', '1');
+				} else {
+					currentEl.css('opacity', '0');
+				}
+			});
+		}
+
+		// Change visibilty of work section based on how far the user has scrolled 
+		let workSectionIsVisible = (currentScrollY + windowHeight) > (aboutSecBottom + 120) &&
+								   (currentScrollY) < 600;
+
+		let workSectionIsNotVisible = (currentScrollY + windowHeight) < (aboutSecBottom + 120)
+
+		if(workSectionIsVisible){
+			workSection.css({"opacity" : "1", "transform": "translateY(-11rem)"});
+		} else if(workSectionIsNotVisible){
+			workSection.css({"opacity" : "0", "transform" : "translateY(8rem)"});
+		}
+
+		// Change visibility of footer section based on how far the user has scrolled
+		let footerIsVisible = (currentScrollY + windowHeight) >= footerSectionTopOffset;
+
+		if(footerIsVisible){
+			footerSection.css("opacity", "1");
+		}
+		else{
+			footerSection.css("opacity", "0");
+		}
+
+
+		// Change menu opacity while scrolling
+		adjustMenuOpacity();	
+
+		// Change which item in navigation is 'active'
+		adjustNavItemsState();
+
+		ticking = false;
+	}
+
+	/* ----- Attaching event listeners to window  ----- */ 
+	$(window).on('scroll', onScroll);
+	$(window).on('resize', debounce(onResize, 150));
+
+	// Smooth Scrolling 
+	let currentHashtag = "";
 	$(".menu a").click(function(e){
 		e.preventDefault();
 
 		if(currentHashtag !== this.hash){
-			//Calculate Destination
-			var href = this.hash;
-			var dest = 0;
-			if($(this.hash).offset().top > $(document).height() - $(window).height()){
+			//Calculate values to reach destination
+			let href = this.hash;
+			let dest = 0;
+			if($(this.hash).offset().top > ($(document).height() - $(window).height())){
 				dest = $(document).height() - $(window).height();
 			}
 
 			else if(this.hash === "#work"){
-				var that = this;
+				let that = this;
 				dest = $(that.hash).offset().top - 100;
 
 				setTimeout(function(){
@@ -220,6 +280,8 @@ $(function(){
 			}
 
 			scrollbarTo(dest, href);
+		} else {
+			return;
 		}
 	});
 

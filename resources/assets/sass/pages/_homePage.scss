@@ -26,11 +26,10 @@ section.brief-intro{
 }
 /* ------------ SECTION: Work ------------ */
 section.about{
-	position: relative; 
+	position: absolute; 
 	opacity: 0;
-	margin: 18rem 0 0;
-	transition: transform 1500ms cubic-bezier(0.19, 1, 0.22, 1) 0ms,  opacity 1500ms cubic-bezier(0.19, 1, 0.22, 1) 0ms;
-	transform: translateY(20rem);
+	margin: 29.5rem 0 0;
+	transition: transform 1500ms cubic-bezier(0.19, 1, 0.22, 1) 0ms, opacity 2000ms cubic-bezier(0.19, 1, 0.22, 1) 0ms;
 
 	p.about-me {
 		position: relative;
@@ -40,14 +39,12 @@ section.about{
 		font-size: $fontSize-base;
 		width: 50%;
 		white-space: pre-line;
-		margin-bottom: 4rem;
 		letter-spacing: 1px;
 		line-height: 1.5rem;
 		padding-left: 2rem;
 		transition:  opacity 1000ms cubic-bezier(0.19, 1, 0.22, 1) 0ms;
 		
 	}
-
 	span.line{
 			display: inline-block;
 			position: absolute;
@@ -64,10 +61,10 @@ section.about{
 
 section.work-container{
 	position: relative; 
-	margin: 4rem 0 10rem;
+	margin: 53rem 0 2rem;
 	opacity: 0;	
-	transition: transform 1500ms cubic-bezier(0.19, 1, 0.22, 1) 0ms, opacity 3000ms cubic-bezier(0.19, 1, 0.22, 1) 0ms;
-	transform: translateY(13rem);
+	transition: transform 2000ms cubic-bezier(0.19, 1, 0.22, 1) 0ms, opacity 3500ms cubic-bezier(0.19, 1, 0.22, 1) 0ms;
+	transform: translateY(8rem);
 
 	.img-container{
 	 position: relative;
@@ -170,7 +167,7 @@ section.work-container{
 
 footer{
 	padding: 0;
-	margin-top: 15rem;
+	margin-top: -2rem;
 	position: relative; 
 	overflow: hidden;
 	padding-bottom: 4rem;
@@ -182,7 +179,6 @@ footer{
 	float: left;
 	width: 45%;
 	border: 1px solid transparent; 
-
 
 		h2{
 		@include merriweather-3;
